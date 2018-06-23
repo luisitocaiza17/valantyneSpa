@@ -1,16 +1,31 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Valantyne Spa</a>
+
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
             <li routerLinkActive="active" class="nav-item"><!-- routing link active activa y desactiva la seleccion del menu-->
-                <a class="nav-link" routerLink="./principal">Inico <span class="sr-only">(current)</span></a>
+                <a class="nav-link" routerLink="./principal">Inicio <span class="sr-only">(current)</span></a>
             </li>
         </ul>
     </div>
 </nav>
 
-<router-outlet></router-outlet>
+<nav class="navbar navbar-dark bg-dark">
+    <img  class="navbar-brand" src="../assets/logo_Inicial_cabecera_2.png" width="140" height="35">
+
+        <ul class="navbar-nav">
+            <li routerLinkActive="active" class="nav-item"><!-- routing link active activa y desactiva la seleccion del menu-->
+                <a class="nav-link" routerLink="./principal">Inicio <span class="sr-only">(current)</span></a>
+            </li>
+        </ul>
+   
+</nav>
+
+<div class="container">
+    <router-outlet></router-outlet>
+</div>
+
+
 

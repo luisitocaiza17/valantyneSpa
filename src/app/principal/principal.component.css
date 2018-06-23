@@ -1,0 +1,13 @@
+#visualizadorPrincipal {
+    background-image: url('../../assets/logo_gradual.png');
+    background-repeat: no-repeat;
+}
+
+/*
+html {
+    background: url(PATH_TO_IMAGE) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}*/
