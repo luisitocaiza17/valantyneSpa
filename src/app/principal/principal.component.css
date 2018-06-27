@@ -1,7 +1,13 @@
-#visualizadorPrincipal {
+/*#visualizadorPrincipal {
     background-image: url('../../assets/logo_gradual.png');
     background-repeat: no-repeat;
+}*/
+
+.tamanioCarosel{
+    height: 600px;
+    width: 100%;
 }
+
 
 /*
 html {

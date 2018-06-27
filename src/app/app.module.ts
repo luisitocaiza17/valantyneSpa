@@ -7,7 +7,9 @@ import { PrincipalComponent } from './principal/principal.component';
 import {RouterModule, Routes} from '@angular/router';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {ConfgServices} from './services/conf.services';
+import { ReservasComponent } from './reservas/reservas.component';
 // modulo principal
 
 /**Todo: configuracion de rutas**/
@@ -20,7 +22,8 @@ const Routing = RouterModule.forRoot(APP_ROUTES);
 @NgModule({
   declarations: [
     AppComponent,
-    PrincipalComponent
+    PrincipalComponent,
+    ReservasComponent
   ],
   imports: [
       BrowserModule,
@@ -28,10 +31,12 @@ const Routing = RouterModule.forRoot(APP_ROUTES);
       BrowserModule,
       HttpClientModule,
       FormsModule,
-      ReactiveFormsModule
+      ReactiveFormsModule,
+      NgbModule.forRoot(),// bootstrap ngb
   ],
   providers: [
-      HttpClient
+      HttpClient,
+      ConfgServices
   ],
   bootstrap: [AppComponent] //npm install bootstrap  -- en angular-cli.json "../node_modules/bootstrap/dist/css/bootstrap.min.css",
 })

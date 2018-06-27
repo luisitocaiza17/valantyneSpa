@@ -1,31 +1,21 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-            <li routerLinkActive="active" class="nav-item"><!-- routing link active activa y desactiva la seleccion del menu-->
-                <a class="nav-link" routerLink="./principal">Inicio <span class="sr-only">(current)</span></a>
-            </li>
-        </ul>
+<div class="row bg-dark">
+    <div class="col-2">
+        <div class="espacioBlanco"></div>
+        <img  class="navbar-brand mitad" src="../assets/logo_Inicial_cabecera_2.png" align="middle" width="220" height="50">
     </div>
-</nav>
-
-<nav class="navbar navbar-dark bg-dark">
-    <img  class="navbar-brand" src="../assets/logo_Inicial_cabecera_2.png" width="140" height="35">
-
+    <div class="col-10">
+    <nav class="navbar navbar-dark bg-dark">
         <ul class="navbar-nav">
             <li routerLinkActive="active" class="nav-item"><!-- routing link active activa y desactiva la seleccion del menu-->
                 <a class="nav-link" routerLink="./principal">Inicio <span class="sr-only">(current)</span></a>
             </li>
         </ul>
-   
-</nav>
-
-<div class="container">
-    <router-outlet></router-outlet>
+    </nav>
+    </div>
 </div>
+
+    <router-outlet></router-outlet>
+
 
 
 
