@@ -4,12 +4,31 @@
         <img  class="navbar-brand mitad" src="../assets/logo_Inicial_cabecera_2.png" align="middle" width="220" height="50">
     </div>
     <div class="col-10">
-    <nav class="navbar navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <ul class="navbar-nav">
             <li routerLinkActive="active" class="nav-item"><!-- routing link active activa y desactiva la seleccion del menu-->
                 <a class="nav-link" routerLink="./principal">Inicio <span class="sr-only">(current)</span></a>
             </li>
+            <div *ngIf="loggedIn">
+                <li routerLinkActive="active" class="nav-item"><!-- routing link active activa y desactiva la seleccion del menu-->
+                    <a class="nav-link" routerLink="./reservas">Reservar </a>
+                </li>
+            </div>
         </ul>
+        <ul class="navbar-nav ml-auto" *ngIf="loggedIn">
+            <li routerLinkActive="active" class="nav-item ">
+                <a class="nav-link text-white">{{loggedUser}}</a>
+            </li>
+            <li routerLinkActive="active" class="nav-item ">
+                <a class="nav-link" (click)="logout()">LogOut</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto" *ngIf="!loggedIn">
+            <li routerLinkActive="active" class="nav-item"><!-- routing link active activa y desactiva la seleccion del menu-->
+                <a class="nav-link" routerLink="./login">Login </a>
+            </li>
+        </ul>
+
     </nav>
     </div>
 </div>

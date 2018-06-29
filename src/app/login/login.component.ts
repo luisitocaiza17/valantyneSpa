@@ -1,48 +1,31 @@
 import { Component, OnInit } from '@angular/core';
-import {ConfgServices} from '../services/conf.services';
-import {NgbCarouselConfig, NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import { Router} from '@angular/router';
 import {FireBaseProcessServices} from '../services/FireBaseProcess.services';
 import swal from "sweetalert2";
-import {Router} from '@angular/router';
 
 @Component({
-  selector: 'app-principal',
-  templateUrl: './principal.component.html',
-  styleUrls: ['./principal.component.css']
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
 })
-export class PrincipalComponent implements OnInit {
-
-    parrafoInicial:String;
-    parrafoInicialDetalle:String;
-    arrayImagenRutes:Array<String>;
+export class LoginComponent implements OnInit {
+    logueP:any={};
+    constructor(private router: Router, private autorizacion: FireBaseProcessServices) {
+        this.objetoLogueo = {correo: '' ,contrasenia: '',correo2: '' ,contrasenia2: '',contrasenia22: ''}
+    }
     esLogueo=true;
     objetoLogueo:any;
-    modalReference: NgbModalRef;
-
-    constructor(configuration:ConfgServices,config: NgbCarouselConfig,private modalService: NgbModal,private autorizacion: FireBaseProcessServices,private router:Router) {
-      config.interval = 5000;
-      this.arrayImagenRutes= new Array<String>();
-      this.arrayImagenRutes.push('../../assets/panel-inicial.png');
-      this.arrayImagenRutes = configuration.rutasCarosel();
-      this.objetoLogueo = {correo: '' ,contrasenia: '',correo2: '' ,contrasenia2: '',contrasenia22: ''}
-  }
 
     ngOnInit() {
-          this.parrafoInicial='Valantyne Spa, les da la Bienvenida.';
-          this.parrafoInicialDetalle='Nuestra pasión guiar a nuestros clientes en una vida sana, que mejero su belleza fisica y su belleza interna';
-  }
-
-    openLg(content) {
-        this.modalReference=this.modalService.open(content, { size: 'sm' }) ;
-  }
+    }
 
     activarSeccionRegistro(){
-      this.esLogueo=false;
-  }
+        this.esLogueo=false;
+    }
 
     activarSeccionLogueo(){
-  this.esLogueo=true;
-}
+        this.esLogueo=true;
+    }
 
     ingresarCorreo(){
         if(this.objetoLogueo.correo.trim() === '' && this.objetoLogueo.contrasenia.trim()===''){
@@ -61,26 +44,25 @@ export class PrincipalComponent implements OnInit {
                     type: 'success',
                     confirmButtonText: 'Bacan!!'
                 })
-                this.modalReference.close();
                 this.router.navigate(['reservas']);
             })
-            .catch((error)=>{
-                let detalle=error.toString();
-                if(detalle.includes("password"))
-                    detalle='El usuario o contraseña no son correctos, si no los tiene por favor registrate primero.';
-                swal({
-                    title: 'Error!',
-                    text: 'Detalle:'+detalle,
-                    type: 'error',
-                    confirmButtonText: 'Bacan'
-                });
-                return false;
-            })
+                .catch((error)=>{
+                    let detalle=error.toString();
+                    if(detalle.includes("password"))
+                        detalle='El usuario o contraseña no son correctos, si no los tiene por favor registrate primero.';
+                    swal({
+                        title: 'Error!',
+                        text: 'Detalle:'+detalle,
+                        type: 'error',
+                        confirmButtonText: 'Bacan'
+                    });
+                    return false;
+                })
         }
     }
 
     registrarCorreo(){
-      debugger;
+        debugger;
         if(this.objetoLogueo.correo2.trim() === '' && this.objetoLogueo.contrasenia2.trim()===''&& this.objetoLogueo.contrasenia22.trim()===''){
             swal({
                 title: 'Error!',
@@ -106,7 +88,6 @@ export class PrincipalComponent implements OnInit {
                             type: 'success',
                             confirmButtonText: 'Bacan!!'
                         });
-                        this.modalReference.close();
                         this.router.navigate(['reservas']);
                     })
                 ).catch((error)=>{
@@ -123,14 +104,19 @@ export class PrincipalComponent implements OnInit {
 
     ingresarRegistrarFacebook(){
         this.autorizacion.facebooLoging().then((result)=>{
+            this.router.navigate(['reservas']).then((result)=>{
+                alert('si')
+            }).catch((error)=>{
+                alert(error);
+            });
+
+
             swal({
                 title: 'Logueado!',
                 text: 'Usuario Logueado Correctamente, realiza yá tu reservación!!',
                 type: 'success',
                 confirmButtonText: 'Ahora sí a Reservar!'
             });
-            this.modalReference.close();
-            this.router.navigate(['reservas']);
 
         }).catch((error)=>{
             swal({
@@ -142,7 +128,4 @@ export class PrincipalComponent implements OnInit {
         })
     }
 
-    cerrar(){
-    this.modalReference.close();
-}
 }

@@ -3,7 +3,7 @@
   <ng-template ngbSlide>
     <img [src]="arrayImagenRutes[0]" class="tamanioCarosel" alt="Random first slide">
     <div class="carousel-caption">
-      <button class="btn btn-success btn-lg">RESERVA TU CITA</button>
+      <button class="btn btn-success btn-lg" (click)="openLg(content)">RESERVA TU CITA</button>
       <h3>Tu Primera Cita es Gratis</h3>
       <p>No Necesitas Gastar Una Fortuna Recibe Nuestros Descuentos</p>
     </div>
@@ -69,3 +69,62 @@
   </div>
 </div>
 </div>
+
+<!--Modal-->
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <div *ngIf="esLogueo">
+      <h4 class="modal-title">Ingresar</h4>
+    </div>
+    <div *ngIf="!esLogueo">
+      <h4 class="modal-title">Registrate</h4>
+    </div>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div *ngIf="esLogueo">
+
+      <div class="form-group">
+        <label for="exampleInputEmail1">Email</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" [(ngModel)]="objetoLogueo.correo" aria-describedby="emailHelp" placeholder="Enter email">
+        <small id="emailHelp" class="form-text text-muted">Ingresa el correo electrónico con el que te registraste</small>
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword1" [(ngModel)]="objetoLogueo.contrasenia" placeholder="Password">
+      </div>
+      <button type="submit" class="btn btn-success btn-lg btn-block" (click)="ingresarCorreo()">Ingresar</button>
+      <br>
+      <p>Ingresa con Redes Sociales</p>
+      <button type="button" class="btn btn-primary btn-lg btn-block" (click)="ingresarRegistrarFacebook()">Facebook</button>
+      <br>
+      Si aun no tienes Cuenta <a href="#" (click)="activarSeccionRegistro()">Registrate!!</a>
+
+  </div>
+    <div *ngIf="!esLogueo">
+
+        <div class="form-group">
+          <label for="exampleInputEmail2">Email</label>
+          <input type="email" class="form-control" id="exampleInputEmail2" aria-describedby="emailHelp2" [(ngModel)]="objetoLogueo.correo2" placeholder="Enter email">
+          <small id="emailHelp2" class="form-text text-muted">Ingresa tu correo electrónico</small>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword2">Contraseña</label>
+          <input type="password" class="form-control" id="exampleInputPassword2" [(ngModel)]="objetoLogueo.contrasenia2" placeholder="Password">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword2">Repetir Contraseña</label>
+          <input type="password" class="form-control" id="exampleInputPassword3" [(ngModel)]="objetoLogueo.contrasenia22" placeholder="Password">
+        </div>
+        <button type="submit" class="btn btn-success btn-lg btn-block" (click)="registrarCorreo()">Registrar</button>
+        <br>
+        <p>Registrarte facíl con redes sociales</p>
+        <button type="button" class="btn btn-primary btn-lg btn-block" (click)="ingresarRegistrarFacebook()">Facebook</button>
+        <br>
+        <a href="#" (click)="activarSeccionLogueo()">Regresar</a>
+
+    </div>
+  </div>
+</ng-template>

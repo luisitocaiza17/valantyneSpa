@@ -1,0 +1,84 @@
+<div class="container">
+  <br>
+  <div class="row">
+    <div class="col-12">
+      <div class="alert alert-success" role="alert">
+        <h4 class="alert-heading">Hola, Ingresa Ó regitrate!</h4>
+        <p>Es bacan que te gusten nuestros servicios y productos, ingresa con tu cuenta o registrate de forma sensilla en dos simples pasos, es hora de aprobechar
+        todos nuestros servicios, productos y promociones.</p>
+        <hr>
+        <p class="mb-0"> "La belleza es un arte y está a tu alcance!!"</p>
+      </div>
+
+    </div>
+  </div>
+  <br>
+  <div class="row">
+      <div class="col-6" *ngIf="esLogueo">
+        <div class="card" >
+          <img class="card-img-top" src="../../assets/chocolaterapia-1.jpg" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Card title1</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-6" *ngIf="!esLogueo">
+        <div class="card" >
+          <img class="card-img-top" src="../../assets/chocolaterapia-1.jpg" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Card title2</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-5">
+        <div *ngIf="esLogueo">
+          <h4 class="modal-title">Ingresar</h4>
+        </div>
+        <div *ngIf="!esLogueo">
+          <h4 class="modal-title">Registrate</h4>
+        </div>
+        <div *ngIf="esLogueo">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Email</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" [(ngModel)]="objetoLogueo.correo" aria-describedby="emailHelp" placeholder="Enter email">
+            <small id="emailHelp" class="form-text text-muted">Ingresa el correo electrónico con el que te registraste</small>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" [(ngModel)]="objetoLogueo.contrasenia" placeholder="Password">
+          </div>
+          <button type="submit" class="btn btn-success btn-lg btn-block" (click)="ingresarCorreo()">Ingresar</button>
+          <br>
+          <p>Ingresa con Redes Sociales</p>
+          <button type="button" class="btn btn-primary btn-lg btn-block" (click)="ingresarRegistrarFacebook()">Facebook</button>
+          <br>
+          Si aun no tienes Cuenta <a (click)="activarSeccionRegistro()"><b> <p class="text-success">REGISTRATE !! (clic Aquí)</p></b></a>
+      </div>
+      <div *ngIf="!esLogueo">
+        <div class="form-group">
+          <label for="exampleInputEmail2">Email</label>
+          <input type="email" class="form-control" id="exampleInputEmail2" aria-describedby="emailHelp2" [(ngModel)]="objetoLogueo.correo2" placeholder="Enter email">
+          <small id="emailHelp2" class="form-text text-muted">Ingresa tu correo electrónico</small>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword2">Contraseña</label>
+          <input type="password" class="form-control" id="exampleInputPassword2" [(ngModel)]="objetoLogueo.contrasenia2" placeholder="Password">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword2">Repetir Contraseña</label>
+          <input type="password" class="form-control" id="exampleInputPassword3" [(ngModel)]="objetoLogueo.contrasenia22" placeholder="Password">
+        </div>
+        <button type="submit" class="btn btn-success btn-lg btn-block" (click)="registrarCorreo()">Registrar</button>
+        <br>
+        <p>Registrarte facíl con redes sociales</p>
+        <button type="button" class="btn btn-primary btn-lg btn-block" (click)="ingresarRegistrarFacebook()">Facebook</button>
+        <br>
+        <br>
+        <a (click)="activarSeccionLogueo()"><b> <p class="text-success">REGRESAR !! (clic Aquí)</p></b></a>
+      </div>
+      </div>
+      <div class="col-1"></div>
+  </div>
+</div>
