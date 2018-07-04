@@ -1,3 +1,30 @@
-<p>
-  reservas works!
-</p>
+<img src="../../assets/banner.png" class="img-fluid" alt="Responsive image">
+<div class="container">
+  <br>
+  <blockquote class="blockquote ">
+    <h2>Sección de Reservas.</h2>
+    <footer class="blockquote-footer">Has tu reservacion de forma rápida y sensilla en poco segundos <cite title="Source Title">(la belleza a pocos clic's)</cite></footer>
+  </blockquote>
+  <br>
+  <div class="row">
+    <div class="col-2">
+      <div class="btn-group-vertical">
+        <button type="button" [ngClass]="{ btn:true, 'btn-primary':primeraSeccion ,'btn-light':!primeraSeccion}" (click)="activarPrimeraSeccion()">Solicitar una Cita</button>
+        <button type="button" [ngClass]="{ btn:true, 'btn-primary':segundaSeccion ,'btn-light':!segundaSeccion}" (click)="activarSegundaSeccion()">Reagendar una Cita</button>
+        <button type="button" [ngClass]="{ btn:true, 'btn-primary':terceraSeccion ,'btn-light':!terceraSeccion}" (click)="activarTerceraSeccion()">Cancelar una Cita</button>
+      </div>
+    </div>
+    <div class="col-10">
+      <div class="card">
+        <div class="card-header text-white bg-primary">
+          Featured
+        </div>
+        <div class="card-body">
+          <h5 class="card-title ">Special title treatment</h5>
+          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

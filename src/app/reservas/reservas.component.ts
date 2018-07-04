@@ -7,9 +7,31 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReservasComponent implements OnInit {
 
-  constructor() { }
+  primeraSeccion:boolean;
+  segundaSeccion:boolean;
+  terceraSeccion:boolean;
+  constructor() {
+    this.primeraSeccion=true;
+    this.segundaSeccion=false;
+    this.terceraSeccion=false;
+  }
 
   ngOnInit() {
   }
 
+    activarPrimeraSeccion(){
+        this.primeraSeccion=true;
+        this.segundaSeccion=false;
+        this.terceraSeccion=false;
+    }
+    activarSegundaSeccion(){
+        this.primeraSeccion=false;
+        this.segundaSeccion=true;
+        this.terceraSeccion=false;
+    }
+    activarTerceraSeccion(){
+        this.primeraSeccion=false;
+        this.segundaSeccion=false;
+        this.terceraSeccion=true;
+    }
 }

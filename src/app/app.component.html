@@ -1,17 +1,28 @@
-<div class="row bg-dark">
+<!--<div class="row bg-dark">
     <div class="col-2">
         <div class="espacioBlanco"></div>
         <img  class="navbar-brand mitad" src="../assets/logo_Inicial_cabecera_2.png" align="middle" width="220" height="50">
     </div>
-    <div class="col-10">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="col-10">-->
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
         <ul class="navbar-nav">
             <li routerLinkActive="active" class="nav-item"><!-- routing link active activa y desactiva la seleccion del menu-->
                 <a class="nav-link" routerLink="./principal">Inicio <span class="sr-only">(current)</span></a>
             </li>
             <div *ngIf="loggedIn">
+            <li ngbDropdown class="nav-item" routerLinkActive="active">
+                <a class="nav-link" id="navbarDropdownMenuLink" ngbDropdownToggle aria-haspopup="true" aria-expanded="false">
+                    Reservas
+                </a>
+                <div ngbDropdownMenu aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" routerLink="./reservas">Solicitar una Cita</a>
+                    <a class="dropdown-item" routerLink="./reservas">Agenda de Citas</a>
+                </div>
+            </li>
+            </div>
+            <div *ngIf="loggedIn">
                 <li routerLinkActive="active" class="nav-item"><!-- routing link active activa y desactiva la seleccion del menu-->
-                    <a class="nav-link" routerLink="./reservas">Reservar </a>
+                    <a class="nav-link" routerLink="./reservas">Agendar Citas </a>
                 </li>
             </div>
         </ul>
@@ -28,10 +39,7 @@
                 <a class="nav-link" routerLink="./login">Login </a>
             </li>
         </ul>
-
     </nav>
-    </div>
-</div>
 
     <router-outlet></router-outlet>
 
