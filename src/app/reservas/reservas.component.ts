@@ -30,6 +30,9 @@ export class ReservasComponent implements OnInit {
     numeroConvencional:string;
     numeroCelular:string;
     cita:Reservas;
+    listaCitas: Array<Reservas>;
+    procesoGuardado:boolean;
+    listaErrores:String;
 
   constructor(config: NgbDatepickerConfig, private firebaseDB:FireBaseProcessServices) {
       this.primeraSeccion=true;
@@ -57,6 +60,9 @@ export class ReservasComponent implements OnInit {
       this.seccionHora=false;
       this.correoElectronico=this.firebaseDB.getUser().currentUser.email;
       this.cita= new Reservas();
+      this.listaCitas= new Array<Reservas>();
+      this.procesoGuardado=false;
+      this.listaErrores='';
   }
 
   ngOnInit() {
@@ -96,6 +102,7 @@ export class ReservasComponent implements OnInit {
                 fechaFin.setTime(o.hora_fin.seconds*1000);
                 this.horario.hora_inicio=fechaInicio;
                 this.horario.hora_fin=fechaFin;
+                this.horario.turno=o.turno;
                 this.horariosList.push(this.horario);
             }
 
@@ -149,7 +156,7 @@ export class ReservasComponent implements OnInit {
     }
 
     RealizarReserva(){
-        if(this.correoElectronico===''||this.numeroCelular===''||this.numeroConvencional===''){
+        if(this.correoElectronico===''||this.numeroCelular===''){
             swal({
                 title: 'Obligatorios!',
                 text: 'El correo electrónico, número de celular y el número de teléfono convecional son obligatorios!!',
@@ -158,23 +165,34 @@ export class ReservasComponent implements OnInit {
             });
         }else{
             //lleno el objeto
-            this.cita = new Reservas();
-            this.cita.correo_confirmacion=this.correoElectronico;
-            this.cita.celular_confirmacion= this.numeroCelular;
-            this.cita.telf_confirmacion = this.numeroConvencional;
-            this.cita.fecha=this.fechaActual;
-            this.cita.horarios_inicios='';
-            this.cita.horarios_fin='';
+             this.listaCitas=[];
+             let idUsuario=this.firebaseDB.getUser().currentUser.uid;
             for(let horario of this.horariosList){
-                this.cita.horarios_inicios+=horario.hora_inicio+";";
-                this.cita.horarios_fin+=horario.hora_fin+";";
+                this.cita = new Reservas();
+                this.cita.correo_confirmacion=this.correoElectronico;
+                this.cita.celular_confirmacion= this.numeroCelular;
+                this.cita.telf_confirmacion = this.numeroConvencional;
+                this.cita.fecha=this.fechaActual;
+                this.cita.horarios_inicios+=horario.hora_inicio;
+                this.cita.horarios_fin+=horario.hora_fin;
+                this.cita.turno=horario.turno;
+                this.cita.usuario_id=idUsuario;
+                this.listaCitas.push(this.cita);
             }
-            //llenamos con el id de usuario;
-            this.cita.usuario_id=this.firebaseDB.getUser().currentUser.uid;
             //llamamos al servicio para el almacenamiento;
-            let respuesta=this.firebaseDB.guardarReserva(this.cita);
-            let este=this;
-            respuesta.then(function(res) {
+            this.procesoGuardado=true;
+            for(let citaR of this.listaCitas){
+                let respuesta=this.firebaseDB.guardarReserva(citaR);
+                let este=this;
+                respuesta.then(function(res) {
+                    console.log("Document written with ID: ", res.id);
+                })
+                .catch(function(error) {
+                    este.procesoGuardado=false;
+                    este.listaErrores+=error+'\n';
+                });
+            }
+            if(this.procesoGuardado){
                 swal({
                     title: 'Felicidades Cita Realizada!',
                     text: 'Tu cita a sido agendada con éxito, nosotros nos estaremos comunicando contigo para confirmarla' +
@@ -182,22 +200,24 @@ export class ReservasComponent implements OnInit {
                     type: 'success',
                     confirmButtonText: ' Que bacan!!...'
                 });
-                console.log("Document written with ID: ", res.id);
-                este.primeraSeccion=false;
-                este.segundaSeccion=true;
-                este.terceraSeccion=false;
-            })
-            .catch(function(error) {
-                console.error("Error adding document: ", error);
+                this.primeraSeccion=false;
+                this.segundaSeccion=true;
+                this.terceraSeccion=false;
+                this.seccionFecha=true;
+                this.seccionHora=false;
+                this.numeroCelular='';
+                this.numeroConvencional='';
+                this.fechaActual=new Date();
+                this.horariosList=[];
+            }else{
+                console.error("Error adding document: ", this.listaErrores);
                 swal({
                     title: 'Error!',
-                    text: 'Tuvimos un error con el sistema:'+error.toString(),
+                    text: 'Tuvimos un error con el sistema:'+this.listaErrores,
                     type: 'error',
                     confirmButtonText: ' Esta bien...'
                 });
-            });
+            }
         }
-
     }
-
 }

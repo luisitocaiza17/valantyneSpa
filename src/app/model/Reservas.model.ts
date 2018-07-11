@@ -6,6 +6,7 @@ export class Reservas{
         public horarios_inicios?:string,
         public horarios_fin?:string,
         public telf_confirmacion?:string,
-        public usuario_id?:string
+        public usuario_id?:string,
+        public turno?:number
     ){};
 }

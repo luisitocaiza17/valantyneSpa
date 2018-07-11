@@ -4,6 +4,7 @@ export class horarios{
         public hora_inicio?:Date,
         public nombre?:String,
         public dia?:number,
-        public seleccionado?:boolean
+        public seleccionado?:boolean,
+        public turno?:number,
     ){};
 }
