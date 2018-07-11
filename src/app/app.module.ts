@@ -17,6 +17,7 @@ import {environment} from '../environments/environment';
 import { LoginComponent } from './login/login.component';
 import {FireBaseProcessServices} from './services/FireBaseProcess.services';
 import {MyGuard} from './services/GuardRutas.services';
+import {AngularFirestoreModule} from 'angularfire2/firestore';
 // modulo principal
 
 /**Todo: configuracion de rutas**/
@@ -47,6 +48,7 @@ const Routing = RouterModule.forRoot(APP_ROUTES);
       AngularFireModule.initializeApp(environment.firebase),
       AngularFireDatabaseModule ,
       AngularFireAuthModule,
+      AngularFirestoreModule
   ],
   providers: [
       HttpClient,

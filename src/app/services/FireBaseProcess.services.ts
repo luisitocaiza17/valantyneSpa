@@ -5,12 +5,14 @@ import swal from "sweetalert2";
 import {AngularFireAuth} from 'angularfire2/auth';
 import * as firebase from 'firebase';
 import {Router} from '@angular/router';
+import {AngularFirestore} from 'angularfire2/firestore';
+import {Reservas} from '../model/Reservas.model';
 
 @Injectable()
 
 export class FireBaseProcessServices{
     URL_BASE:string ='https://valantynespa.firebaseio.com';
-    constructor( private afDB: AngularFireDatabase, private angularFireAuth:AngularFireAuth , private http:HttpClient, private router:Router) {
+    constructor( private afDB: AngularFireDatabase, private angularFireAuth:AngularFireAuth, private anfs:AngularFirestore , private http:HttpClient, private router:Router) {
         this.isLogue();
     }
     public login =( email:string ,password:string )=>{
@@ -39,7 +41,28 @@ export class FireBaseProcessServices{
         });
         this.router.navigate(['principal']);
     }
+
     public getUser(){
         return this.angularFireAuth.auth;
+    }
+
+    /**Todo: SECCION HORARIOS**/
+    //metodo para traer todos los horarios
+    public getHorarios(){
+        return this.anfs.collection('/Horarios').valueChanges();
+    }
+    //metodo para traer los horarios especificios dependiendo del dia
+    //https://github.com/angular/angularfire2/blob/master/docs/firestore/querying-collections.md
+    public getHorario(diaDeSemana:number){
+        return this.anfs.collection('/Horarios',ref => ref.where('dia','==',diaDeSemana)).valueChanges();
+    }
+
+    /**Todo: SECCION RESERVAS**/
+    //crear una reserva
+    public guardarReserva(reserva:Reservas){
+        let respuesta:string='';
+        var data = JSON.parse(JSON.stringify(reserva));
+        return this.anfs.collection("Reservas").add(data);
+
     }
 }
