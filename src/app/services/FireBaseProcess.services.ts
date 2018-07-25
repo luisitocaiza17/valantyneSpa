@@ -65,4 +65,16 @@ export class FireBaseProcessServices{
         return this.anfs.collection("Reservas").add(data);
 
     }
+    //traerReservas
+    public getReservas(usuario_id:string){
+        return this.anfs.collection('/Reservas',ref => ref.where('usuario_id','==',usuario_id)).valueChanges();
+    }
+    //borrar registro
+    public deleteReserva(reserva:Reservas){
+        return this.anfs.collection('/Reservas').ref.where('id','==',reserva.id).get();
+    }
+    //actualizar un registro
+    public updateReserva(reserva:Reservas){
+        return this.anfs.collection('/Reservas').ref.where('id','==',reserva.id).get();
+    }
 }

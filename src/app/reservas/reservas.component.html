@@ -8,14 +8,14 @@
   <br>
   <div class="row">
     <div class="col-2">
-      <div class="btn-group-vertical">
+      <div class="btn-group-vertical" >
         <button type="button" [ngClass]="{ btn:true, 'btn-primary':primeraSeccion ,'btn-light':!primeraSeccion}" (click)="activarPrimeraSeccion()">Solicitar una Cita</button>
         <button type="button" [ngClass]="{ btn:true, 'btn-primary':segundaSeccion ,'btn-light':!segundaSeccion}" (click)="activarSegundaSeccion()">Ver Agenda de Citas</button>
         <button type="button" [ngClass]="{ btn:true, 'btn-primary':terceraSeccion ,'btn-light':!terceraSeccion}" (click)="activarTerceraSeccion()">Cancelar una Cita</button>
       </div>
     </div>
       <!--SECCION DE CITAS-->
-    <div class="col-10" *ngIf="primeraSeccion">
+      <div class="col-10" *ngIf="primeraSeccion">
       <div class="card">
         <div class="card-header text-white bg-primary">
           <h3>Solicitar una cita</h3>
@@ -112,7 +112,35 @@
               </div>
               <div class="card-body">
                   <p class="card-text">Puedes ver los dias y hora que tienes agendada una cita</p>
-
+                  <input type="hidden" [(ngModel)]="idCitaGenerada" >
+                  <table class="table table-hover">
+                      <thead class="thead-dark">
+                      <tr>
+                          <th scope="col">Horario</th>
+                          <th scope="col">No-Turno</th>
+                          <th scope="col">Hora de Inicio</th>
+                          <th scope="col">Hora de Fin</th>
+                          <th scope="col">Reagendar</th>
+                          <th scope="col">Cancelar</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <ng-container *ngFor="let cita of listaCitasRealizadas" >
+                          <tr [ngClass]="{ 'table-danger':cita.fecha < fechaGlobal ,'table-success':cita.fecha == fechaGlobal}" >
+                              <td>{{cita.fecha| date:'dd/MM/yyyy'}}</td>
+                              <td>{{cita.turno}}</td>
+                              <td>{{cita.horarios_inicios| date:'mediumTime'}}</td>
+                              <td>{{cita.horarios_fin| date:'mediumTime'}}</td>
+                              <td>
+                                  <input type="button" class="btn btn-primary" [disabled]="cita.fecha < fechaGlobal" (click)="ModificarCita(cita)" value="Reagendar">
+                              </td>
+                              <td>
+                                  <input type="button" class="btn btn-danger" [disabled]="cita.fecha < fechaGlobal" (click)="eliminarCita(cita)" value="Cancelar">
+                              </td>
+                          </tr>
+                      </ng-container>
+                      </tbody>
+                  </table>
               </div>
           </div>
       </div>
