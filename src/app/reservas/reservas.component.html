@@ -7,15 +7,17 @@
   </blockquote>
   <br>
   <div class="row">
-    <div class="col-2">
-      <div class="btn-group-vertical" >
-        <button type="button" [ngClass]="{ btn:true, 'btn-primary':primeraSeccion ,'btn-light':!primeraSeccion}" (click)="activarPrimeraSeccion()">Solicitar una Cita</button>
-        <button type="button" [ngClass]="{ btn:true, 'btn-primary':segundaSeccion ,'btn-light':!segundaSeccion}" (click)="activarSegundaSeccion()">Ver Agenda de Citas</button>
-        <button type="button" [ngClass]="{ btn:true, 'btn-primary':terceraSeccion ,'btn-light':!terceraSeccion}" (click)="activarTerceraSeccion()">Cancelar una Cita</button>
-      </div>
+    <div class="col-12">
+
+            <button type="button" [ngClass]="{ btn:true, 'btn-primary':primeraSeccion ,'btn-light':!primeraSeccion}" (click)="activarPrimeraSeccion()">Solicitar una Cita&nbsp;</button>
+            <button type="button" [ngClass]="{ btn:true, 'btn-primary':segundaSeccion ,'btn-light':!segundaSeccion}" (click)="activarSegundaSeccion()">Ver Agenda de Citas</button>
+
     </div>
+  </div>
+    <br>
+      <div class="row">
       <!--SECCION DE CITAS-->
-      <div class="col-10" *ngIf="primeraSeccion">
+      <div class="col-12" *ngIf="primeraSeccion">
       <div class="card">
         <div class="card-header text-white bg-primary">
           <h3>Solicitar una cita</h3>
@@ -36,6 +38,7 @@
                     <div *ngIf="seccionHora">
                       <h4>2.- Escoge el horario de tu cita</h4>
                       <br>
+                        <div class="app-table-responsive">
                         <table class="table table-striped">
                             <thead class="thead-dark">
                             <tr>
@@ -58,6 +61,7 @@
                               </ng-container>
                             </tbody>
                         </table>
+                        </div>
                     </div>
                 </div>
               </div>
@@ -110,37 +114,47 @@
               <div class="card-header text-white bg-primary">
                   <h3>Agenda de citas</h3>
               </div>
-              <div class="card-body">
-                  <p class="card-text">Puedes ver los dias y hora que tienes agendada una cita</p>
-                  <input type="hidden" [(ngModel)]="idCitaGenerada" >
-                  <table class="table table-hover">
-                      <thead class="thead-dark">
-                      <tr>
-                          <th scope="col">Horario</th>
-                          <th scope="col">No-Turno</th>
-                          <th scope="col">Hora de Inicio</th>
-                          <th scope="col">Hora de Fin</th>
-                          <th scope="col">Reagendar</th>
-                          <th scope="col">Cancelar</th>
-                      </tr>
-                      </thead>
-                      <tbody>
-                      <ng-container *ngFor="let cita of listaCitasRealizadas" >
-                          <tr [ngClass]="{ 'table-danger':cita.fecha < fechaGlobal ,'table-success':cita.fecha == fechaGlobal}" >
-                              <td>{{cita.fecha| date:'dd/MM/yyyy'}}</td>
-                              <td>{{cita.turno}}</td>
-                              <td>{{cita.horarios_inicios| date:'mediumTime'}}</td>
-                              <td>{{cita.horarios_fin| date:'mediumTime'}}</td>
-                              <td>
-                                  <input type="button" class="btn btn-primary" [disabled]="cita.fecha < fechaGlobal" (click)="ModificarCita(cita)" value="Reagendar">
-                              </td>
-                              <td>
-                                  <input type="button" class="btn btn-danger" [disabled]="cita.fecha < fechaGlobal" (click)="eliminarCita(cita)" value="Cancelar">
-                              </td>
-                          </tr>
-                      </ng-container>
-                      </tbody>
-                  </table>
+              <div class="card-body p-0">
+                  <div class="row">
+                      <div class="col-1"></div>
+                      <div class="col-10">
+                          <br>
+                          <p class="card-text">Puedes ver los dias y hora que tienes agendada una cita</p>
+                          <input type="hidden" [(ngModel)]="idCitaGenerada" >
+                          <div class="app-table-responsive">
+                          <table class="table table-hover mb-0">
+
+                              <thead class="thead-dark">
+                              <tr>
+                                  <th scope="col">Horario</th>
+                                  <th scope="col">No-Turno</th>
+                                  <th scope="col">Hora de Inicio</th>
+                                  <th scope="col">Hora de Fin</th>
+                                  <th scope="col">Reagendar</th>
+                                  <th scope="col">Cancelar</th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              <ng-container *ngFor="let cita of listaCitasRealizadas" >
+                                  <tr [ngClass]="{ 'table-danger':cita.fecha < fechaGlobal ,'table-success':cita.fecha == fechaGlobal}" >
+                                      <td>{{cita.fecha| date:'dd/MM/yyyy'}}</td>
+                                      <td>{{cita.turno}}</td>
+                                      <td>{{cita.horarios_inicios| date:'mediumTime'}}</td>
+                                      <td>{{cita.horarios_fin| date:'mediumTime'}}</td>
+                                      <td>
+                                          <input type="button" class="btn btn-primary" [disabled]="cita.fecha < fechaGlobal" (click)="ModificarCita(cita)" value="Reagendar">
+                                      </td>
+                                      <td>
+                                          <input type="button" class="btn btn-danger" [disabled]="cita.fecha < fechaGlobal" (click)="eliminarCita(cita)" value="Cancelar">
+                                      </td>
+                                  </tr>
+                              </ng-container>
+                              </tbody>
+                          </table>
+                          </div>
+                      </div>
+                      <div class="col-1"></div>
+                  </div>
               </div>
           </div>
       </div>
